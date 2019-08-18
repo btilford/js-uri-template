@@ -1,9 +1,11 @@
-indent: auto
+indent: no
 indent-spaces: 4
 quiet: yes
 tidy-mark: no
 show-body-only: yes
 show-errors: 0
-wrap: 0
+wrap: 120
+wrap-attributes: yes
 auto: yes
 show-info: no
+mark: no
