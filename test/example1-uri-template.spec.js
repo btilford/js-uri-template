@@ -123,7 +123,7 @@ describe('1. Example - UriTemplate', () => {
 
       expect(val).to.equal('/bin,/etc');
     });
-    it('With (explode "*")[https://tools.ietf.org/html/rfc6570#section-2.4.2"]</a>.', () => {
+    it('With explode "*".', () => {
       const val = UriTemplate.parse('{/paths*}')
         .expand({
           paths: ['/usr/bin', 'bash']
