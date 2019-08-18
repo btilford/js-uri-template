@@ -12,6 +12,7 @@ const { UriTemplate } = require('@btilford/uri-template');
 
 const template = UriTemplate.parse('https://github.com/btilford/js-uri-template/tree/{/branch}');
 const url = template.expand({branch:'master'}).format();
+// https://github.com/btilford/js-uri-template/tree/master
 
 ```
 
