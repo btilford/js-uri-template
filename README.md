@@ -8,7 +8,7 @@ Javascript [RFC 6570](https://tools.ietf.org/html/rfc6570) URI templating.
 ## Usage
 
 ```javascript 1.6
-const UriTemplate = require('@btilford/uri-template');
+const { UriTemplate } = require('@btilford/uri-template');
 
 const template = UriTemplate.parse('https://github.com/btilford/js-uri-template/tree/{/branch}');
 const url = template.expand({branch:'master'}).format();
@@ -34,4 +34,17 @@ See [usage](https://btilford.github.io/js-uri-template/index.html) for more exam
 * Explode `{something*}`
 * Max Length `{something:10}`
 * Multiple args for all types `https://app{.env,tld}`
+ 
+### Builder
+
+There is also a template builder available to build template strings.
+
+```javascript 1.6
+const { UriTemplateBuilder } = require('@btilford/uri-template');
+
+const templateString = UriTemplateBuilder.from('https://github.com/btilford/js-uri-template/blob')
+    .path('branch', 'file')
+    .format();
+// https://github.com/btilford/js-uri-template/blob{/branch,file}
+``` 
  
