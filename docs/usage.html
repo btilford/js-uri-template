@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>btilford/uri-template docs</title>
+  <style>
+      body {
+          background: rgb(30, 30, 30);
+          color: rgb(222,222,222);
+      }
+      pre {
+          box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+          background: rgb(20, 20, 20);
+          padding: 1em;
+      }
+   </style>
+</head>
+<body>
+    <section class="suite">
+      <h1>UriTemplateBuilder Spec</h1>
+      <dl>
+        <section class="suite">
+          <h1>Basics</h1>
+          <dl>
+            <dt>The simplest thing.</dt>
+            <dd><pre><code>const val = UriTemplateBuilder.from(&#x27;http://localhost&#x27;)
+  .text(&#x27;:&#x27;)
+  .simple(&#x27;port&#x27;)
+  .format();
+expect(val).to.equal(&#x27;http://localhost:{port}&#x27;);</code></pre></dd>
+            <dt>This really just appends stuff.</dt>
+            <dd><pre><code>const val = UriTemplateBuilder.from(&#x27;http://localhost&#x27;)
+  .label(&#x27;tld&#x27;)
+  .simple(&#x27;port&#x27;)
+  .text(&#x27;/v1&#x27;)
+  .path(&#x27;some&#x27;, &#x27;thing&#x27;)
+  .query(&#x27;username&#x27;, &#x27;id&#x27;)
+  .format();
+expect(val).to.equal(&#x27;http://localhost{.tld}{port}/v1{/some,thing}{?username,id}&#x27;);</code></pre></dd>
+          </dl>
+        </section>
+      </dl>
+    </section>
+    <section class="suite">
+      <h1>UriTemplate spec</h1>
+      <dl>
+        <section class="suite">
+          <h1>Basics</h1>
+          <dl>
+            <dt>The simplest expansion</dt>
+            <dd><pre><code>const val = UriTemplate.parse(&#x27;https://xyz/{name}&#x27;)
+  .expand({
+    name: &#x27;abc&#x27;
+  }).format();
+expect(val).to.equal(&#x27;https://xyz/abc&#x27;);</code></pre></dd>
+            <dt>A bit more</dt>
+            <dd><pre><code>const val = UriTemplate.parse(&#x27;https://{.host*}{/version,path*}{?a,b,c*}{#some-id}&#x27;)
+  .expand({
+    host: [&#x27;acme&#x27;, &#x27;com&#x27;],
+    path: [&#x27;some&#x27;, &#x27;thing&#x27;],
+    version: &#x27;v2&#x27;,
+    a: &#x27;A&#x27;,
+    b: &#x27;B&#x27;,
+    c: &#x27;the letter c&#x27;,
+    &#x27;some-id&#x27;: &#x27;thing 1&#x27;
+  }).format();
+expect(val).to.equal(&#x27;https://acme.com/v2/some/thing?a=A?b=B?c=the%20letter%20c#thing%201&#x27;);</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>Chained Expansion</h1>
+          <dl>
+            <dt>Allows leaving the template in tact after adding a hostname</dt>
+            <dd><pre><code>uriTemplate = uriTemplate.expand({ hostname: &#x27;localhost&#x27; });
+const val = uriTemplate.format();
+expect(val).to.equal(&#x27;https://localhost/path/{/id}&#x27;);</code></pre></dd>
+            <dt>And afterwards adding the rest of the params.</dt>
+            <dd><pre><code>const val = uriTemplate.expand({id: 123})
+  .format();
+expect(val).to.equal(&#x27;https://localhost/path/123&#x27;);</code></pre></dd>
+          </dl>
+        </section>
+        <section class="suite">
+          <h1>Handling variable types</h1>
+          <dl>
+            <dt>Empty vars</dt>
+            <dd><pre><code>const val = UriTemplate.parse(&#x27;http://some/thing{?abc}&#x27;)
+  .expand({ abc: &#x27;&#x27; })
+  .format();
+expect(val).to.equal(&#x27;http://some/thing?abc&#x27;);</code></pre></dd>
+            <dt>Undefined or null vars</dt>
+            <dd><pre><code>const val = UriTemplate.parse(&#x27;http://some/thing{?abc}&#x27;)
+  .expand({ abc: null })
+  .format();
+expect(val).to.equal(&#x27;http://some/thing&#x27;);</code></pre></dd>
+          </dl>
+        </section>
+      </dl>
+    </section>
+
+</body>
+</html>

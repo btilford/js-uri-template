@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "lint": "eslint .",
-    "format": "eslint . --fix"
+    "format": "eslint . --fix",
+    "usage": "mocha --reporter=doc --grep=\"UriTemplate\" --sort | cat templates/docs-header.html - templates/docs-footer.html > docs/usage.html"
   },
   "repository": {
     "type": "git",

@@ -1,2 +1,4 @@
 const UriTemplate = require('./lib/UriTemplate');
-module.exports = UriTemplate;
+const UriTemplateBuilder = require('./lib/UriTemplateBuilder');
+
+module.exports = { UriTemplate, UriTemplateBuilder };
