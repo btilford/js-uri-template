@@ -115,7 +115,7 @@ describe('1. Example - UriTemplate', () => {
     });
   });
   describe('Value lists', () => {
-    it('Without <a href="https://tools.ietf.org/html/rfc6570#section-2.4.2" rel="rfc">explode "*"</a>.', () => {
+    it('Without explode "*".', () => {
       const val = UriTemplate.parse('{/paths}')
         .expand({
           paths: ['bin', '/etc']
@@ -123,7 +123,7 @@ describe('1. Example - UriTemplate', () => {
 
       expect(val).to.equal('/bin,/etc');
     });
-    it('With <a href="https://tools.ietf.org/html/rfc6570#section-2.4.2" rel="rfc">explode "*"</a>.', () => {
+    it('With (explode "*")[https://tools.ietf.org/html/rfc6570#section-2.4.2"]</a>.', () => {
       const val = UriTemplate.parse('{/paths*}')
         .expand({
           paths: ['/usr/bin', 'bash']

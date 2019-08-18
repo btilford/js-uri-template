@@ -73,11 +73,11 @@
             <section class="suite">
                 <h1>Value lists</h1>
                 <dl>
-                    <dt>Without &lt;a href="https://tools.ietf.org/html/rfc6570#section-2.4.2" rel="rfc"&gt;explode "*"&lt;/a&gt;.</dt>
+                    <dt>Without explode "*".</dt>
                     <dd>
                         <pre><code>const val = UriTemplate.parse('{/paths}') .expand({ paths: ['bin', '/etc'] }).format(); expect(val).to.equal('/bin,/etc');</code></pre>
                     </dd>
-                    <dt>With &lt;a href="https://tools.ietf.org/html/rfc6570#section-2.4.2" rel="rfc"&gt;explode "*"&lt;/a&gt;.</dt>
+                    <dt>With (explode "*")[https://tools.ietf.org/html/rfc6570#section-2.4.2"]&lt;/a&gt;.</dt>
                     <dd>
                         <pre><code>const val = UriTemplate.parse('{/paths*}') .expand({ paths: ['/usr/bin', 'bash'] }).format(); expect(val).to.equal('/usr/bin/bash');</code></pre>
                     </dd>
