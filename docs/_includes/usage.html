@@ -7,15 +7,19 @@
 <dl>
 <dt>The simplest expansion</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('https://xyz/{name}')
+{% highlight javascript %}
+const val = UriTemplate.parse('https://xyz/{name}')
   .expand({
     name: 'abc'
   })
   .format();
-expect(val).to.equal('https://xyz/abc');</code></pre></dd>
+expect(val).to.equal('https://xyz/abc');
+{% endhighlight  %}
+</dd>
 <dt>A bit more</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('https://app{.host*}{/version,path*}{?a,b,c*}{#some-id}')
+{% highlight javascript %}
+const val = UriTemplate.parse('https://app{.host*}{/version,path*}{?a,b,c*}{#some-id}')
   .expand({
     host: ['acme', 'com'],
     path: ['some', 'thing'],
@@ -26,7 +30,9 @@ expect(val).to.equal('https://xyz/abc');</code></pre></dd>
     'some-id': 'thing 1'
   })
   .format();
-expect(val).to.equal('https://app.acme.com/v2/some/thing?a=A?b=B?c=the%20letter%20c#thing%201');</code></pre></dd>
+expect(val).to.equal('https://app.acme.com/v2/some/thing?a=A?b=B?c=the%20letter%20c#thing%201');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">
@@ -34,14 +40,20 @@ expect(val).to.equal('https://app.acme.com/v2/some/thing?a=A?b=B?c=the%20letter%
 <dl>
 <dt>Allows leaving the template in tact after adding a hostname</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>uriTemplate = uriTemplate.expand({ env: 'localhost' });
+{% highlight javascript %}
+uriTemplate = uriTemplate.expand({ env: 'localhost' });
 const val = uriTemplate.format();
-expect(val).to.equal('https://app.localhost/path/{/id}');</code></pre></dd>
+expect(val).to.equal('https://app.localhost/path/{/id}');
+{% endhighlight  %}
+</dd>
 <dt>And afterwards adding the rest of the params.</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = uriTemplate.expand({ id: 123 })
+{% highlight javascript %}
+const val = uriTemplate.expand({ id: 123 })
   .format();
-expect(val).to.equal('https://app.localhost/path/123');</code></pre></dd>
+expect(val).to.equal('https://app.localhost/path/123');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">
@@ -49,46 +61,67 @@ expect(val).to.equal('https://app.localhost/path/123');</code></pre></dd>
 <dl>
 <dt>Label "{.xyz}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('file{.extension}')
+{% highlight javascript %}
+const val = UriTemplate.parse('file{.extension}')
   .expand({ extension: 'js' })
   .format();
-expect(val).to.equal('file.js');</code></pre></dd>
+expect(val).to.equal('file.js');
+{% endhighlight  %}
+</dd>
 <dt>Fragment "{#id}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('/path{#id}')
+{% highlight javascript %}
+const val = UriTemplate.parse('/path{#id}')
   .expand({ id: 'section 1' })
   .format();
-expect(val).to.equal('/path#section%201');</code></pre></dd>
+expect(val).to.equal('/path#section%201');
+{% endhighlight  %}
+</dd>
 <dt>Path segment "{/id}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('/path{/id}')
+{% highlight javascript %}
+const val = UriTemplate.parse('/path{/id}')
   .expand({ id: '123' })
   .format();
-expect(val).to.equal('/path/123');</code></pre></dd>
+expect(val).to.equal('/path/123');
+{% endhighlight  %}
+</dd>
 <dt>Path style param "{;id}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('/path{;id}')
+{% highlight javascript %}
+const val = UriTemplate.parse('/path{;id}')
   .expand({ id: '123' })
   .format();
-expect(val).to.equal('/path;id=123');</code></pre></dd>
+expect(val).to.equal('/path;id=123');
+{% endhighlight  %}
+</dd>
 <dt>Query "{?id}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('/path{?id}')
+{% highlight javascript %}
+const val = UriTemplate.parse('/path{?id}')
   .expand({ id: '123' })
   .format();
-expect(val).to.equal('/path?id=123');</code></pre></dd>
+expect(val).to.equal('/path?id=123');
+{% endhighlight  %}
+</dd>
 <dt>Query continuation "{&amp;offset}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('/path?limit=100{&amp;offset}')
+{% highlight javascript %}
+const val = UriTemplate.parse('/path?limit=100{&amp;offset}')
   .expand({ offset: '300' })
   .format();
-expect(val).to.equal('/path?limit=100&amp;offset=300');</code></pre></dd>
+expect(val).to.equal('/path?limit=100&amp;offset=300');
+{% endhighlight  %}
+</dd>
 <dt>Reserved string "{+redirectUri}" variables</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('https://nowhere.test/login?redirect={+redirectUri}')
+{% highlight javascript %}
+const val = UriTemplate.parse('https://nowhere.test/login?redirect={+redirectUri}')
   .expand({ redirectUri: 'https://github.com' })
   .format();
-expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.com');</code></pre></dd>
+expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.com');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">
@@ -96,14 +129,17 @@ expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.c
 <dl>
 <dt>Any type can have a list of variable slots.</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('https://api{.env,host}{/version,path}')
+{% highlight javascript %}
+const val = UriTemplate.parse('https://api{.env,host}{/version,path}')
   .expand({
     env: 'dev',
     host: 'xyz.com',
     version: 'v2',
     path: 'resource/xyz'
   }).format();
-expect(val).to.equal('https://api.dev.xyz.com/v2/resource/xyz');</code></pre></dd>
+expect(val).to.equal('https://api.dev.xyz.com/v2/resource/xyz');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">
@@ -111,18 +147,24 @@ expect(val).to.equal('https://api.dev.xyz.com/v2/resource/xyz');</code></pre></d
 <dl>
 <dt>Without explode "*".</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('{/paths}')
+{% highlight javascript %}
+const val = UriTemplate.parse('{/paths}')
   .expand({
     paths: ['bin', '/etc']
   }).format();
-expect(val).to.equal('/bin,/etc');</code></pre></dd>
+expect(val).to.equal('/bin,/etc');
+{% endhighlight  %}
+</dd>
 <dt>With explode "*".</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('{/paths*}')
+{% highlight javascript %}
+const val = UriTemplate.parse('{/paths*}')
   .expand({
     paths: ['/usr/bin', 'bash']
   }).format();
-expect(val).to.equal('/usr/bin/bash');</code></pre></dd>
+expect(val).to.equal('/usr/bin/bash');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">
@@ -130,20 +172,26 @@ expect(val).to.equal('/usr/bin/bash');</code></pre></dd>
 <dl>
 <dt>You can provide max length "{?code:1}" (default is 10,000)</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('{?code:1}')
+{% highlight javascript %}
+const val = UriTemplate.parse('{?code:1}')
   .expand({ code: 'four' })
   .format();
-expect(val).to.equal('?code=f');</code></pre></dd>
+expect(val).to.equal('?code=f');
+{% endhighlight  %}
+</dd>
 <dt>Max Length needs to be before any explode</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const good = UriTemplate.parse('{?code:1*}')
+{% highlight javascript %}
+const good = UriTemplate.parse('{?code:1*}')
   .expand({ code: ['four', 'x'] })
   .format();
 expect(good).to.equal('?code=f&amp;code=x');
 const bad = UriTemplate.parse('{?code*:1}')
   .expand({ code: ['four', 'x'] })
   .format();
-expect(bad).to.equal('{?code*:1}');</code></pre></dd>
+expect(bad).to.equal('{?code*:1}');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">
@@ -151,16 +199,22 @@ expect(bad).to.equal('{?code*:1}');</code></pre></dd>
 <dl>
 <dt>Empty vars</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('http://some/thing{?abc}')
+{% highlight javascript %}
+const val = UriTemplate.parse('http://some/thing{?abc}')
   .expand({ abc: '' })
   .format();
-expect(val).to.equal('http://some/thing?abc');</code></pre></dd>
+expect(val).to.equal('http://some/thing?abc');
+{% endhighlight  %}
+</dd>
 <dt>Undefined or null vars</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplate.parse('http://some/thing{?abc}')
+{% highlight javascript %}
+const val = UriTemplate.parse('http://some/thing{?abc}')
   .expand({ abc: null })
   .format();
-expect(val).to.equal('http://some/thing');</code></pre></dd>
+expect(val).to.equal('http://some/thing');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 </dd>
@@ -175,21 +229,27 @@ expect(val).to.equal('http://some/thing');</code></pre></dd>
 <dl>
 <dt>The simplest thing.</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplateBuilder.from('http://localhost')
+{% highlight javascript %}
+const val = UriTemplateBuilder.from('http://localhost')
   .text(':')
   .simple('port')
   .format();
-expect(val).to.equal('http://localhost:{port}');</code></pre></dd>
+expect(val).to.equal('http://localhost:{port}');
+{% endhighlight  %}
+</dd>
 <dt>This really just appends stuff.</dt>
 <dd>
-<pre class="highlight highlight-source-js"><code>const val = UriTemplateBuilder.from('http://localhost')
+{% highlight javascript %}
+const val = UriTemplateBuilder.from('http://localhost')
   .label('tld')
   .simple('port')
   .text('/v1')
   .path('some', 'thing')
   .query('username', 'id')
   .format();
-expect(val).to.equal('http://localhost{.tld}{port}/v1{/some,thing}{?username,id}');</code></pre></dd>
+expect(val).to.equal('http://localhost{.tld}{port}/v1{/some,thing}{?username,id}');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 </dd>

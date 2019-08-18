@@ -7,7 +7,7 @@ cp README.md docs/index.md
 
 mocha --reporter=doc --grep="UriTemplate" --sort > /tmp/uri-template-usage
 set +e
-cat /tmp/uri-template-usage | tidy -config docs/.tidyrc | sed 's/<pre>/<pre class=\"highlight highlight-source-js\">/' > docs/_includes/usage.html
+cat /tmp/uri-template-usage | tidy -config docs/.tidyrc | sed 's/<pre><code>/{% highlight javascript %}\n/' | sed 's/<\/code><\/pre>/\n{% endhighlight  %}\n/' > docs/_includes/usage.html
 set -e
 rm /tmp/uri-template-usage
 cd $DIR

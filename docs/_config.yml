@@ -7,3 +7,8 @@ show_downloads: true
 google_analytics: G-6L3V8LTD4K
 
 highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: javascript
