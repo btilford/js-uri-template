@@ -12,7 +12,7 @@ Javascript [RFC 6570](https://tools.ietf.org/html/rfc6570) URI templating.
 
 ## Usage
 
-```
+```javascript
 
 const { UriTemplate } = require('@btilford/uri-template');
 
@@ -22,7 +22,7 @@ const url = template.expand({branch:'master'}).format();
 
 ```
 
-See [usage](https://btilford.github.io/js-uri-template/index.html) for more examples.
+See [usage](https://btilford.github.io/js-uri-template/usage.html) for more examples.
 
 ## Features
 
@@ -46,7 +46,7 @@ See [usage](https://btilford.github.io/js-uri-template/index.html) for more exam
 
 There is also a template builder available to build template strings.
 
-```
+```javascript
 
 const { UriTemplateBuilder } = require('@btilford/uri-template');
 

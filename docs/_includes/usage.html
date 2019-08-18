@@ -7,7 +7,7 @@
 <dl>
 <dt>The simplest expansion</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('https://xyz/{name}')
+<pre class="highlight"><code>const val = UriTemplate.parse('https://xyz/{name}')
   .expand({
     name: 'abc'
   })
@@ -15,7 +15,7 @@
 expect(val).to.equal('https://xyz/abc');</code></pre></dd>
 <dt>A bit more</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('https://app{.host*}{/version,path*}{?a,b,c*}{#some-id}')
+<pre class="highlight"><code>const val = UriTemplate.parse('https://app{.host*}{/version,path*}{?a,b,c*}{#some-id}')
   .expand({
     host: ['acme', 'com'],
     path: ['some', 'thing'],
@@ -34,12 +34,12 @@ expect(val).to.equal('https://app.acme.com/v2/some/thing?a=A?b=B?c=the%20letter%
 <dl>
 <dt>Allows leaving the template in tact after adding a hostname</dt>
 <dd>
-<pre><code>uriTemplate = uriTemplate.expand({ env: 'localhost' });
+<pre class="highlight"><code>uriTemplate = uriTemplate.expand({ env: 'localhost' });
 const val = uriTemplate.format();
 expect(val).to.equal('https://app.localhost/path/{/id}');</code></pre></dd>
 <dt>And afterwards adding the rest of the params.</dt>
 <dd>
-<pre><code>const val = uriTemplate.expand({ id: 123 })
+<pre class="highlight"><code>const val = uriTemplate.expand({ id: 123 })
   .format();
 expect(val).to.equal('https://app.localhost/path/123');</code></pre></dd>
 </dl>
@@ -49,43 +49,43 @@ expect(val).to.equal('https://app.localhost/path/123');</code></pre></dd>
 <dl>
 <dt>Label "{.xyz}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('file{.extension}')
+<pre class="highlight"><code>const val = UriTemplate.parse('file{.extension}')
   .expand({ extension: 'js' })
   .format();
 expect(val).to.equal('file.js');</code></pre></dd>
 <dt>Fragment "{#id}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('/path{#id}')
+<pre class="highlight"><code>const val = UriTemplate.parse('/path{#id}')
   .expand({ id: 'section 1' })
   .format();
 expect(val).to.equal('/path#section%201');</code></pre></dd>
 <dt>Path segment "{/id}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('/path{/id}')
+<pre class="highlight"><code>const val = UriTemplate.parse('/path{/id}')
   .expand({ id: '123' })
   .format();
 expect(val).to.equal('/path/123');</code></pre></dd>
 <dt>Path style param "{;id}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('/path{;id}')
+<pre class="highlight"><code>const val = UriTemplate.parse('/path{;id}')
   .expand({ id: '123' })
   .format();
 expect(val).to.equal('/path;id=123');</code></pre></dd>
 <dt>Query "{?id}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('/path{?id}')
+<pre class="highlight"><code>const val = UriTemplate.parse('/path{?id}')
   .expand({ id: '123' })
   .format();
 expect(val).to.equal('/path?id=123');</code></pre></dd>
 <dt>Query continuation "{&amp;offset}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('/path?limit=100{&amp;offset}')
+<pre class="highlight"><code>const val = UriTemplate.parse('/path?limit=100{&amp;offset}')
   .expand({ offset: '300' })
   .format();
 expect(val).to.equal('/path?limit=100&amp;offset=300');</code></pre></dd>
 <dt>Reserved string "{+redirectUri}" variables</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('https://nowhere.test/login?redirect={+redirectUri}')
+<pre class="highlight"><code>const val = UriTemplate.parse('https://nowhere.test/login?redirect={+redirectUri}')
   .expand({ redirectUri: 'https://github.com' })
   .format();
 expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.com');</code></pre></dd>
@@ -96,7 +96,7 @@ expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.c
 <dl>
 <dt>Any type can have a list of variable slots.</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('https://api{.env,host}{/version,path}')
+<pre class="highlight"><code>const val = UriTemplate.parse('https://api{.env,host}{/version,path}')
   .expand({
     env: 'dev',
     host: 'xyz.com',
@@ -111,14 +111,14 @@ expect(val).to.equal('https://api.dev.xyz.com/v2/resource/xyz');</code></pre></d
 <dl>
 <dt>Without explode "*".</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('{/paths}')
+<pre class="highlight"><code>const val = UriTemplate.parse('{/paths}')
   .expand({
     paths: ['bin', '/etc']
   }).format();
 expect(val).to.equal('/bin,/etc');</code></pre></dd>
 <dt>With explode "*".</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('{/paths*}')
+<pre class="highlight"><code>const val = UriTemplate.parse('{/paths*}')
   .expand({
     paths: ['/usr/bin', 'bash']
   }).format();
@@ -130,13 +130,13 @@ expect(val).to.equal('/usr/bin/bash');</code></pre></dd>
 <dl>
 <dt>You can provide max length "{?code:1}" (default is 10,000)</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('{?code:1}')
+<pre class="highlight"><code>const val = UriTemplate.parse('{?code:1}')
   .expand({ code: 'four' })
   .format();
 expect(val).to.equal('?code=f');</code></pre></dd>
 <dt>Max Length needs to be before any explode</dt>
 <dd>
-<pre><code>const good = UriTemplate.parse('{?code:1*}')
+<pre class="highlight"><code>const good = UriTemplate.parse('{?code:1*}')
   .expand({ code: ['four', 'x'] })
   .format();
 expect(good).to.equal('?code=f&amp;code=x');
@@ -151,13 +151,13 @@ expect(bad).to.equal('{?code*:1}');</code></pre></dd>
 <dl>
 <dt>Empty vars</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('http://some/thing{?abc}')
+<pre class="highlight"><code>const val = UriTemplate.parse('http://some/thing{?abc}')
   .expand({ abc: '' })
   .format();
 expect(val).to.equal('http://some/thing?abc');</code></pre></dd>
 <dt>Undefined or null vars</dt>
 <dd>
-<pre><code>const val = UriTemplate.parse('http://some/thing{?abc}')
+<pre class="highlight"><code>const val = UriTemplate.parse('http://some/thing{?abc}')
   .expand({ abc: null })
   .format();
 expect(val).to.equal('http://some/thing');</code></pre></dd>
@@ -175,14 +175,14 @@ expect(val).to.equal('http://some/thing');</code></pre></dd>
 <dl>
 <dt>The simplest thing.</dt>
 <dd>
-<pre><code>const val = UriTemplateBuilder.from('http://localhost')
+<pre class="highlight"><code>const val = UriTemplateBuilder.from('http://localhost')
   .text(':')
   .simple('port')
   .format();
 expect(val).to.equal('http://localhost:{port}');</code></pre></dd>
 <dt>This really just appends stuff.</dt>
 <dd>
-<pre><code>const val = UriTemplateBuilder.from('http://localhost')
+<pre class="highlight"><code>const val = UriTemplateBuilder.from('http://localhost')
   .label('tld')
   .simple('port')
   .text('/v1')
