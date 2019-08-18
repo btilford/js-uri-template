@@ -17,3 +17,21 @@ const url = template.expand({branch:'master'}).format();
 
 See [usage](https://btilford.github.io/js-uri-template/index.html) for more examples.
 
+## Features
+
+### Variable Types
+* simple variables `{anything}`
+* label variables `{.hostname}`
+* fragment variables `{#anchor}`
+* path segment variables `{/name}`
+* path style parameter variables `{;myvar}`
+* query variables `{?offset}`
+* query continuation variables `{&limit}`
+* reserved string variables `{+var}`
+
+### Other
+
+* Explode `{something*}`
+* Max Length `{something:10}`
+* Multiple args for all types `https://app{.env,tld}`
+ 
