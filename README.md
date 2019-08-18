@@ -22,7 +22,7 @@ const url = template.expand({branch:'master'}).format();
 
 ```
 
-See [usage](https://btilford.github.io/js-uri-template/index.html) for more examples.
+See [usage](https://btilford.github.io/js-uri-template/usage.html) for more examples.
 
 ## Features
 
