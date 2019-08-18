@@ -36,7 +36,7 @@ See [usage](https://btilford.github.io/js-uri-template/index.html) for more exam
 * Max Length `{something:10}`
 * Multiple args for all types `https://app{.env,tld}`
  
-### Builder
+## Builder
 
 There is also a template builder available to build template strings.
 
