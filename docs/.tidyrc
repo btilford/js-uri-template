@@ -1,0 +1,9 @@
+indent: auto
+indent-spaces: 2
+quiet: yes
+tidy-mark: no
+show-body-only: yes
+show-errors: 0
+wrap: 0
+auto: yes
+show-info: no

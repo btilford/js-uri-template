@@ -7,9 +7,8 @@
     "test": "mocha",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "usage": "mocha --reporter=doc --grep=\"UriTemplate\" --sort > docs/_includes/usage.html",
     "build": "npm run lint && npm run test && npm run usage",
-    "docs": "cp README.md docs/index.md && npm run usage"
+    "docs": "scripts/docs.sh"
   },
   "repository": {
     "type": "git",
