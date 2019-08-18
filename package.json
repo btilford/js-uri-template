@@ -1,6 +1,6 @@
 {
   "name": "@btilford/uri-template",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Javascript RFC 6570 URI template",
   "main": "index.js",
   "scripts": {
