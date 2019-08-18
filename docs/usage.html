@@ -51,7 +51,8 @@ expect(val).to.equal(&#x27;http://localhost{.tld}{port}/v1{/some,thing}{?usernam
             <dd><pre><code>const val = UriTemplate.parse(&#x27;https://xyz/{name}&#x27;)
   .expand({
     name: &#x27;abc&#x27;
-  }).format();
+  })
+  .format();
 expect(val).to.equal(&#x27;https://xyz/abc&#x27;);</code></pre></dd>
             <dt>A bit more</dt>
             <dd><pre><code>const val = UriTemplate.parse(&#x27;https://{.host*}{/version,path*}{?a,b,c*}{#some-id}&#x27;)
@@ -63,7 +64,8 @@ expect(val).to.equal(&#x27;https://xyz/abc&#x27;);</code></pre></dd>
     b: &#x27;B&#x27;,
     c: &#x27;the letter c&#x27;,
     &#x27;some-id&#x27;: &#x27;thing 1&#x27;
-  }).format();
+  })
+  .format();
 expect(val).to.equal(&#x27;https://acme.com/v2/some/thing?a=A?b=B?c=the%20letter%20c#thing%201&#x27;);</code></pre></dd>
           </dl>
         </section>

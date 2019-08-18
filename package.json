@@ -7,7 +7,8 @@
     "test": "mocha",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "usage": "mocha --reporter=doc --grep=\"UriTemplate\" --sort | cat templates/docs-header.html - templates/docs-footer.html > docs/usage.html"
+    "usage": "mocha --reporter=doc --grep=\"UriTemplate\" --sort | cat templates/docs-header.html - templates/docs-footer.html > docs/usage.html",
+    "build": "npm run lint && npm run test && npm run usage"
   },
   "repository": {
     "type": "git",

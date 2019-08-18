@@ -7,7 +7,7 @@ describe('parser spec', () => {
     it('default "simple" var type', () => {
       const result = parse('http://abc/{pathVar}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('simple');
       expect(variable.name).to.equal('pathVar');
       expect(variable.src).to.equal('{pathVar}');
@@ -18,7 +18,7 @@ describe('parser spec', () => {
     it('label var type', () => {
       const result = parse('http://abc{.tld}/');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('label');
       expect(variable.name).to.equal('tld');
       expect(variable.src).to.equal('{.tld}');
@@ -29,7 +29,7 @@ describe('parser spec', () => {
     it('reserved string var type', () => {
       const result = parse('http://abc/{+xyz}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('string');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{+xyz}');
@@ -40,7 +40,7 @@ describe('parser spec', () => {
     it('fragment var type', () => {
       const result = parse('http://abc{#xyz}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('fragment');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{#xyz}');
@@ -51,7 +51,7 @@ describe('parser spec', () => {
     it('path segment var type', () => {
       const result = parse('http://abc{/xyz}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('path segment');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{/xyz}');
@@ -62,7 +62,7 @@ describe('parser spec', () => {
     it('query "?" var type', () => {
       const result = parse('http://abc{?xyz}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('query');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{?xyz}');
@@ -73,7 +73,7 @@ describe('parser spec', () => {
     it('query "&" var type', () => {
       const result = parse('http://abc?mnl=p{&xyz}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('query continuation');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{&xyz}');
@@ -88,7 +88,7 @@ describe('parser spec', () => {
     it('default "simple" var type', () => {
       const result = parse('http://abc/{pathVar*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('simple');
       expect(variable.name).to.equal('pathVar');
       expect(variable.src).to.equal('{pathVar*}');
@@ -99,7 +99,7 @@ describe('parser spec', () => {
     it('label var type', () => {
       const result = parse('http://abc{.tld*}/');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('label');
       expect(variable.name).to.equal('tld');
       expect(variable.src).to.equal('{.tld*}');
@@ -110,7 +110,7 @@ describe('parser spec', () => {
     it('reserved string var type', () => {
       const result = parse('http://abc/{+xyz*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('string');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{+xyz*}');
@@ -121,7 +121,7 @@ describe('parser spec', () => {
     it('fragment var type', () => {
       const result = parse('http://abc{#xyz*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('fragment');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{#xyz*}');
@@ -132,7 +132,7 @@ describe('parser spec', () => {
     it('path segment var type', () => {
       const result = parse('http://abc{/xyz*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('path segment');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{/xyz*}');
@@ -143,7 +143,7 @@ describe('parser spec', () => {
     it('query "?" var type', () => {
       const result = parse('http://abc{?xyz*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('query');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{?xyz*}');
@@ -154,7 +154,7 @@ describe('parser spec', () => {
     it('query "&" var type', () => {
       const result = parse('http://abc?mnl=p{&xyz*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.type.name).to.equal('query continuation');
       expect(variable.name).to.equal('xyz');
       expect(variable.src).to.equal('{&xyz*}');
@@ -167,19 +167,19 @@ describe('parser spec', () => {
     it('defaults to 10k', () => {
       const result = parse('http://abc?mnl=p{&xyz*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.maxLen).to.equal(10000);
     });
     it('parses modifiers correctly', () => {
       const result = parse('http://abc?mnl=p{&xyz:30*}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.maxLen).to.equal(30);
     });
     it('prevents larger than 10k', () => {
       const result = parse('http://abc?mnl=p{&xyz:30000000}');
       expect(result).to.have.lengthOf(1);
-      const variable = result[0];
+      const [variable] = result;
       expect(variable.maxLen).to.equal(10000);
     });
     it('does not allow maxLen after explode', () => {

@@ -9,7 +9,8 @@ describe('UriTemplate spec', () => {
       const val = UriTemplate.parse('https://xyz/{name}')
         .expand({
           name: 'abc'
-        }).format();
+        })
+        .format();
       expect(val).to.equal('https://xyz/abc');
     });
     it('A bit more', () => {
@@ -22,7 +23,8 @@ describe('UriTemplate spec', () => {
           b: 'B',
           c: 'the letter c',
           'some-id': 'thing 1'
-        }).format();
+        })
+        .format();
       expect(val).to.equal('https://acme.com/v2/some/thing?a=A?b=B?c=the%20letter%20c#thing%201');
     });
 
