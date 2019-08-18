@@ -7,7 +7,7 @@
     "test": "mocha",
     "lint": "eslint .",
     "format": "eslint . --fix",
-    "build": "npm run lint && npm run test && npm run usage",
+    "build": "npm run lint && npm run test && npm run docs",
     "docs": "scripts/docs.sh"
   },
   "repository": {
