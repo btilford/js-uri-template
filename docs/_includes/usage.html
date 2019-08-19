@@ -54,6 +54,13 @@ const val = uriTemplate.expand({ id: 123 })
 expect(val).to.equal('https://app.localhost/path/123');
 {% endhighlight  %}
 </dd>
+<dt>You can drop unexpanded parameters.</dt>
+<dd>
+{% highlight javascript %}
+const val = uriTemplate.format(false);
+expect(val).to.equal('https://app.localhost/path/');
+{% endhighlight  %}
+</dd>
 </dl>
 </section>
 <section class="suite">

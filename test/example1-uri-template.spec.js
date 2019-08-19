@@ -47,6 +47,11 @@ describe('1. Example - UriTemplate', () => {
 
       expect(val).to.equal('https://app.localhost/path/123');
     });
+    it('You can drop unexpanded parameters.', () => {
+      const val = uriTemplate.format(false);
+
+      expect(val).to.equal('https://app.localhost/path/');
+    });
   });
 
   describe('Handling variable types', () => {
