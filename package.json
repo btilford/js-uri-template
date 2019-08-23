@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Javascript RFC 6570 URI template",
   "main": "index.js",
+  "homepage": "https://btilford.github.io/js-uri-template/",
   "scripts": {
     "test": "mocha",
     "lint": "eslint .",
@@ -36,5 +37,8 @@
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.1"
+  },
+  "bugs": {
+    "url": "https://github.com/btilford/js-uri-template/issues"
   }
 }
