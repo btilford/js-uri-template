@@ -120,13 +120,13 @@ const val = UriTemplate.parse('/path?limit=100{&amp;offset}')
 expect(val).to.equal('/path?limit=100&amp;offset=300');
 {% endhighlight  %}
 </dd>
-<dt>Reserved string "{+redirectUri}" variables</dt>
+<dt>Reserved string "{+host}" variables</dt>
 <dd>
 {% highlight javascript %}
-const val = UriTemplate.parse('https://nowhere.test/login?redirect={+redirectUri}')
-  .expand({ redirectUri: 'https://github.com' })
+const val = UriTemplate.parse('{+host}/login')
+  .expand({ host: 'https://nowhere.test' })
   .format();
-expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.com');
+expect(val).to.equal('https://nowhere.test/login');
 {% endhighlight  %}
 </dd>
 </dl>
