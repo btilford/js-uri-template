@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Javascript RFC 6570 URI template",
   "main": "index.js",
-  "homepage": "https://btilford.github.io/js-uri-template/",
+  "homepage": "https://github.com/btilford/js-uri-template#readme",
   "scripts": {
     "test": "mocha",
     "lint": "eslint .",
@@ -25,9 +25,8 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/btilford/js-uri-template"
+    "url": "https://github.com/btilford/js-uri-template/issues"
   },
-  "homepage": "https://github.com/btilford/js-uri-template#readme",
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^6.1.0",
@@ -37,8 +36,5 @@
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.1"
-  },
-  "bugs": {
-    "url": "https://github.com/btilford/js-uri-template/issues"
   }
 }
