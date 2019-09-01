@@ -97,12 +97,12 @@ describe('1. Example - UriTemplate', () => {
 
       expect(val).to.equal('/path?limit=100&offset=300');
     });
-    it('Reserved string "{+redirectUri}" variables', () => {
-      const val = UriTemplate.parse('https://nowhere.test/login?redirect={+redirectUri}')
-        .expand({ redirectUri: 'https://github.com' })
+    it('Reserved string "{+host}" variables', () => {
+      const val = UriTemplate.parse('{+host}/login')
+        .expand({ host: 'https://nowhere.test' })
         .format();
 
-      expect(val).to.equal('https://nowhere.test/login?redirect=https%3A%2F%2Fgithub.com');
+      expect(val).to.equal('https://nowhere.test/login');
     });
 
   });
