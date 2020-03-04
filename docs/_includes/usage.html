@@ -75,10 +75,27 @@ expect(val).to.equal('https://app.localhost/path/');
 <dd>
 {% highlight javascript %}
 const parsed = UriTemplate.parse(template);
-const first = parsed.expand({type: 'a'});
-const second = first.expand({type: ['b', 'c']});
+const first = parsed.expand({ type: 'a' });
+const second = first.expand({ type: ['b', 'c'] });
 const end = second.format();
 expect(end).to.equal('http://some.thing?type=a&amp;type=b&amp;type=c');
+{% endhighlight  %}
+</dd>
+</dl>
+</section>
+<section class="suite">
+<h1>Partially applied expansion issue</h1>
+<dl>
+<dt>Outputs incorrectly if unexpanded variables are kept</dt>
+<dd>
+{% highlight javascript %}
+expect(template.format()).to.equal('/a,seg2/c');
+{% endhighlight  %}
+</dd>
+<dt>Output correctly if unexpanded variables are dropped.</dt>
+<dd>
+{% highlight javascript %}
+expect(template.format(false)).to.equal('/a/c');
 {% endhighlight  %}
 </dd>
 </dl>

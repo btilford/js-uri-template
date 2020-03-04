@@ -65,10 +65,25 @@ describe('1. Example - UriTemplate', () => {
     const template = 'http://some.thing{?type*}';
     it('Adds to the exploded var each call', () => {
       const parsed = UriTemplate.parse(template);
-      const first = parsed.expand({type: 'a'});
-      const second = first.expand({type: ['b', 'c']});
+      const first = parsed.expand({ type: 'a' });
+      const second = first.expand({ type: ['b', 'c'] });
       const end = second.format();
       expect(end).to.equal('http://some.thing?type=a&type=b&type=c');
+    });
+  });
+
+
+  // https://github.com/btilford/js-uri-template/issues/1
+  describe('Partially applied expansion issue', () => {
+    const template = UriTemplate.parse('{/seg1,seg2,seg3}')
+      .expand({ seg1: 'a', seg3: 'c' });
+
+    it('Outputs incorrectly if unexpanded variables are kept', () => {
+      expect(template.format()).to.equal('/a,seg2/c');
+    });
+
+    it('Output correctly if unexpanded variables are dropped.', () => {
+      expect(template.format(false)).to.equal('/a/c');
     });
   });
 
