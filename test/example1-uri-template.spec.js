@@ -114,7 +114,8 @@ describe('1. Example - UriTemplate', () => {
           host: 'xyz.com',
           version: 'v2',
           path: 'resource/xyz'
-        }).format();
+        })
+        .format();
 
       expect(val).to.equal('https://api.dev.xyz.com/v2/resource/xyz');
     });
@@ -124,7 +125,8 @@ describe('1. Example - UriTemplate', () => {
       const val = UriTemplate.parse('{/paths}')
         .expand({
           paths: ['bin', '/etc']
-        }).format();
+        })
+        .format();
 
       expect(val).to.equal('/bin,/etc');
     });
@@ -132,7 +134,8 @@ describe('1. Example - UriTemplate', () => {
       const val = UriTemplate.parse('{/paths*}')
         .expand({
           paths: ['/usr/bin', 'bash']
-        }).format();
+        })
+        .format();
 
       expect(val).to.equal('/usr/bin/bash');
     });

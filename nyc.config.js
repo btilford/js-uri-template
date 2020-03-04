@@ -3,9 +3,7 @@ module.exports = {
   all: true,
   include: 'lib/**/*.js',
   reporter: [
-    'json',
-    'lcov',
-    'text'
+    'json', 'lcov', 'text'
   ],
   'report-dir': 'coverage',
   'check-coverage': true,
