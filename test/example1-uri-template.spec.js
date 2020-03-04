@@ -34,23 +34,41 @@ describe('1. Example - UriTemplate', () => {
 
   describe('Chained Expansion', () => {
     const template = 'https://app{.env}/path/{/id}';
-    let uriTemplate = UriTemplate.parse(template);
+
     it('Allows leaving the template in tact after adding a hostname', () => {
+      let uriTemplate = UriTemplate.parse(template);
       uriTemplate = uriTemplate.expand({ env: 'localhost' });
 
       const val = uriTemplate.format();
       expect(val).to.equal('https://app.localhost/path/{/id}');
     });
     it('And afterwards adding the rest of the params.', () => {
+      let uriTemplate = UriTemplate.parse(template);
+      uriTemplate = uriTemplate.expand({ env: 'localhost' });
+
       const val = uriTemplate.expand({ id: 123 })
         .format();
 
       expect(val).to.equal('https://app.localhost/path/123');
     });
     it('You can drop unexpanded parameters.', () => {
+      let uriTemplate = UriTemplate.parse(template);
+      uriTemplate = uriTemplate.expand({ env: 'localhost' });
+
       const val = uriTemplate.format(false);
 
       expect(val).to.equal('https://app.localhost/path/');
+    });
+
+  });
+  describe('Exploded and chained expansion', () => {
+    const template = 'http://some.thing{?type*}'
+    it('Adds to the exploded var each call', () => {
+      const parsed = UriTemplate.parse(template);
+      const first = parsed.expand({type:'a'});
+      const second = first.expand({type:['b', 'c']});
+      const end = second.format();
+      expect(end).to.equal('http://some.thing?type=a&type=b&type=c');
     });
   });
 
@@ -138,6 +156,15 @@ describe('1. Example - UriTemplate', () => {
         .format();
 
       expect(val).to.equal('/usr/bin/bash');
+    });
+    it('When path-style parameter list', () => {
+      const val = UriTemplate.parse('/abc{;param1*,param2}')
+        .expand({
+          param1: ['a', 'b'],
+          param2: ['c']
+        })
+        .format();
+      expect(val).to.equal('/abc;param1=a,b;param2=c');
     });
   });
   describe('Max Length', () => {

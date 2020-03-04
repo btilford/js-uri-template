@@ -15,7 +15,7 @@ describe('parser spec', () => {
       expect(variable.maxLen).to.equal(10000);
       expect(variable.separator).to.equal(',');
     });
-    it('label var type', () => {
+    it('label var type (.)', () => {
       const result = parse('http://abc{.tld}/');
       expect(result).to.have.lengthOf(1);
       const [variable] = result;
@@ -26,7 +26,7 @@ describe('parser spec', () => {
       expect(variable.maxLen).to.equal(10000);
       expect(variable.separator).to.equal(',');
     });
-    it('reserved string var type', () => {
+    it('reserved string var type (+)', () => {
       const result = parse('http://abc/{+xyz}');
       expect(result).to.have.lengthOf(1);
       const [variable] = result;
@@ -37,7 +37,7 @@ describe('parser spec', () => {
       expect(variable.maxLen).to.equal(10000);
       expect(variable.separator).to.equal(',');
     });
-    it('fragment var type', () => {
+    it('fragment var type (#)', () => {
       const result = parse('http://abc{#xyz}');
       expect(result).to.have.lengthOf(1);
       const [variable] = result;
@@ -48,7 +48,7 @@ describe('parser spec', () => {
       expect(variable.maxLen).to.equal(10000);
       expect(variable.separator).to.equal(',');
     });
-    it('path segment var type', () => {
+    it('path segment var type (/)', () => {
       const result = parse('http://abc{/xyz}');
       expect(result).to.have.lengthOf(1);
       const [variable] = result;
@@ -59,7 +59,18 @@ describe('parser spec', () => {
       expect(variable.maxLen).to.equal(10000);
       expect(variable.separator).to.equal(',');
     });
-    it('query "?" var type', () => {
+    it('path parameter var type (;)', () => {
+      const result = parse('http://abc/xyz{;param}');
+      expect(result).to.have.lengthOf(1);
+      const [variable] = result;
+      expect(variable.type.name).to.equal('path-style parameter');
+      expect(variable.name).to.equal('param');
+      expect(variable.src).to.equal('{;param}');
+      expect(variable.explode).to.equal(false);
+      expect(variable.maxLen).to.equal(10000);
+      expect(variable.separator).to.equal(',');
+    });
+    it('query var type (?)', () => {
       const result = parse('http://abc{?xyz}');
       expect(result).to.have.lengthOf(1);
       const [variable] = result;
@@ -70,7 +81,7 @@ describe('parser spec', () => {
       expect(variable.maxLen).to.equal(10000);
       expect(variable.separator).to.equal(',');
     });
-    it('query "&" var type', () => {
+    it('query var type (&)', () => {
       const result = parse('http://abc?mnl=p{&xyz}');
       expect(result).to.have.lengthOf(1);
       const [variable] = result;
