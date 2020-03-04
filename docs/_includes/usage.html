@@ -41,6 +41,7 @@ expect(val).to.equal('https://app.acme.com/v2/some/thing?a=A?b=B?c=the%20letter%
 <dt>Allows leaving the template in tact after adding a hostname</dt>
 <dd>
 {% highlight javascript %}
+let uriTemplate = UriTemplate.parse(template);
 uriTemplate = uriTemplate.expand({ env: 'localhost' });
 const val = uriTemplate.format();
 expect(val).to.equal('https://app.localhost/path/{/id}');
@@ -49,6 +50,8 @@ expect(val).to.equal('https://app.localhost/path/{/id}');
 <dt>And afterwards adding the rest of the params.</dt>
 <dd>
 {% highlight javascript %}
+let uriTemplate = UriTemplate.parse(template);
+uriTemplate = uriTemplate.expand({ env: 'localhost' });
 const val = uriTemplate.expand({ id: 123 })
   .format();
 expect(val).to.equal('https://app.localhost/path/123');
@@ -57,8 +60,25 @@ expect(val).to.equal('https://app.localhost/path/123');
 <dt>You can drop unexpanded parameters.</dt>
 <dd>
 {% highlight javascript %}
+let uriTemplate = UriTemplate.parse(template);
+uriTemplate = uriTemplate.expand({ env: 'localhost' });
 const val = uriTemplate.format(false);
 expect(val).to.equal('https://app.localhost/path/');
+{% endhighlight  %}
+</dd>
+</dl>
+</section>
+<section class="suite">
+<h1>Exploded and chained expansion</h1>
+<dl>
+<dt>Adds to the exploded var each call</dt>
+<dd>
+{% highlight javascript %}
+const parsed = UriTemplate.parse(template);
+const first = parsed.expand({type: 'a'});
+const second = first.expand({type: ['b', 'c']});
+const end = second.format();
+expect(end).to.equal('http://some.thing?type=a&amp;type=b&amp;type=c');
 {% endhighlight  %}
 </dd>
 </dl>
@@ -173,6 +193,18 @@ const val = UriTemplate.parse('{/paths*}')
   })
   .format();
 expect(val).to.equal('/usr/bin/bash');
+{% endhighlight  %}
+</dd>
+<dt>When path-style parameter list</dt>
+<dd>
+{% highlight javascript %}
+const val = UriTemplate.parse('/abc{;param1*,param2}')
+  .expand({
+    param1: ['a', 'b'],
+    param2: ['c']
+  })
+  .format();
+expect(val).to.equal('/abc;param1=a,b;param2=c');
 {% endhighlight  %}
 </dd>
 </dl>

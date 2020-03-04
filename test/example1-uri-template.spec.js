@@ -62,11 +62,11 @@ describe('1. Example - UriTemplate', () => {
 
   });
   describe('Exploded and chained expansion', () => {
-    const template = 'http://some.thing{?type*}'
+    const template = 'http://some.thing{?type*}';
     it('Adds to the exploded var each call', () => {
       const parsed = UriTemplate.parse(template);
-      const first = parsed.expand({type:'a'});
-      const second = first.expand({type:['b', 'c']});
+      const first = parsed.expand({type: 'a'});
+      const second = first.expand({type: ['b', 'c']});
       const end = second.format();
       expect(end).to.equal('http://some.thing?type=a&type=b&type=c');
     });
